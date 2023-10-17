@@ -15,4 +15,11 @@ require("./src/routes/createBloc")(app);
 require("./src/routes/updateBloc")(app);
 require("./src/routes/deleteBloc")(app);
 
+//ENDPOINT ERROR 404
+app.use(({ res }) => {
+  const message =
+    "Impossible de trouver la ressource demandée ! Essayez une autre URL.";
+  res.status(404).json({ message });
+});
+
 app.listen(process.env.PORT, () => console.log(`Application Node started.`));

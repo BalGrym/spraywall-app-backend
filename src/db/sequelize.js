@@ -19,23 +19,29 @@ const sequelize = new Sequelize(
 );
 
 const Bloc = BlocModel(sequelize, DataTypes);
-
+//Ajout de quelques données pour la DB via le fichier mock-blocs.js
 //force: true => supprime les tables pour les recrer avec les modifications apporter / utile uniquement pour le dev
-const initDb = () => {
-  sequelize.sync({ force: true }).then((_) => {
+const initDb = async () => {
+  try {
+    await sequelize.sync({ force: true });
     console.log("DB spraywall synchronisée.");
 
-    //Ajout de quelques données pour la DB via le fichier mock-blocs.js
-    blocs.map((bloc) => {
-      Bloc.create({
+    for (const bloc of blocs) {
+      const blocsSync = await Bloc.create({
         difficulty: bloc.difficulty,
         tags: bloc.tags,
         createdBy: bloc.createdBy,
         like: bloc.like,
         finished: bloc.finished,
-      }).then((blocsSync) => console.log(blocsSync.toJSON()));
-    });
-  });
+      });
+      console.log(blocsSync.toJSON());
+    }
+  } catch (error) {
+    console.error(
+      "Une erreur s'est produite lors de la synchronisation de la base de données : ",
+      error
+    );
+  }
 };
 
 module.exports = {
