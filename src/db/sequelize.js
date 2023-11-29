@@ -19,6 +19,7 @@ const sequelize = new Sequelize(
 );
 
 const Bloc = BlocModel(sequelize, DataTypes);
+
 //Ajout de quelques données pour la DB via le fichier mock-blocs.js
 //force: true => supprime les tables pour les recrer avec les modifications apporter / utile uniquement pour le dev
 const initDb = async () => {
