@@ -14,6 +14,7 @@ require("./src/routes/findBlocByPk")(app);
 require("./src/routes/createBloc")(app);
 require("./src/routes/updateBloc")(app);
 require("./src/routes/deleteBloc")(app);
+require("./src/routes/findWall")(app);
 
 //ENDPOINT ERROR 404
 app.use(({ res }) => {
